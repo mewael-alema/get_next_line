@@ -42,10 +42,12 @@ char	*ft_afternl(char *temp)
 
 	i = 0;
 	j = 0;
-	while (temp[i] != '\n')
+	while (temp[i] && temp[i] != '\n')
 		i++;
 	i++;
 	str = malloc(sizeof(char) * (ft_strlen(temp) - i + 1));
+	if (!str)
+		return NULL;
 	while (temp[i] != '\0')
 	{
 		str[j] = temp[i];
@@ -67,11 +69,16 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX)
 		return (NULL);
 	readchars = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!readchars)
+		return (NULL);
 	count = 1;
-	if (temp)
+	// printf("\ncount= %d\n", 45);
+	if (temp != NULL)
 	{
 		line = ft_strjoin(line, temp);
 		free(temp);
+		temp = NULL;
+		// printf("\temp= %s\n", temp);
 	}
 	while (count != 0)
 	{
@@ -84,6 +91,8 @@ char	*get_next_line(int fd)
 		count = read(fd, readchars, BUFFER_SIZE);
 		if (count == 0)
 		{
+			// printf("count= %d\n", 45);
+			free(readchars);
 			if (line)
 				return (line);
 			return(NULL);
