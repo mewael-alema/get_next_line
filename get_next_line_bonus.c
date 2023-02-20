@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malema <malema@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:28:54 by malema            #+#    #+#             */
-/*   Updated: 2023/02/20 11:26:04 by malema           ###   ########.fr       */
+/*   Updated: 2023/02/20 11:32:33 by malema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_beforenl(char *temp)
 {
@@ -88,22 +88,22 @@ char	*read_chars(char *line, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*temp;
+	static char	*temp[1024];
 	char		*line;
 
 	line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (temp)
+	if (temp[fd])
 	{
-		line = ft_strjoin(line, temp);
-		free(temp);
-		temp = NULL;
+		line = ft_strjoin(line, temp[fd]);
+		free(temp[fd]);
+		temp[fd] = NULL;
 	}
 	line = read_chars(line, fd);
 	if (line && ft_strchr(line, '\n'))
 	{
-		temp = ft_afternl(line);
+		temp[fd] = ft_afternl(line);
 		line = ft_beforenl(line);
 	}
 	return (line);
