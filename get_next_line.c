@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+# include <stdio.h>
 
 char	*ft_beforenl(char *temp)
 {
@@ -44,7 +45,10 @@ char	*ft_afternl(char *temp)
 	while (temp[i] && temp[i] != '\n')
 		i++;
 	if (temp[i] == '\0')
+	{
+		return(NULL);
 		return (ft_strdup(""));
+	}
 	i++;
 	str = malloc(sizeof(char) * (ft_strlen(temp) - i + 1));
 	while (temp[i] != '\0')
@@ -104,6 +108,11 @@ char	*get_next_line(int fd)
 	if (line && ft_strchr(line, '\n'))
 	{
 		temp = ft_afternl(line);
+		if (temp == NULL)
+		{
+			free(temp);
+			temp = NULL;
+		}
 		line = ft_beforenl(line);
 	}
 	return (line);

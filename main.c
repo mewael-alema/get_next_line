@@ -36,14 +36,14 @@ int	main(void)
 	// fd3 = open("calice.txt", O_RDONLY);
 	// fd4 = open("dalice.txt", O_RDONLY);
 
-	// while (1)
-	// {
+	while (1)
+	{
 		line = get_next_line(fd1);
 		line2 = get_next_line(fd2);
 		line3 = get_next_line(fd3);
 		// line4 = get_next_line(fd4);
-		// if (!line)
-		// 	break ;
+		if (!line || !line || !line3)
+			break ;
 		printf("fd1: %s", line);
 		printf("fd2: %s", line2);
 		printf("fd3: %s", line3);
@@ -52,7 +52,10 @@ int	main(void)
 		free(line2);
 		free(line3);
 		// free(line4);
-	// }
+	}
+	free(line);
+	free(line2);
+	free(line3);
 
 	return (0);
 }
