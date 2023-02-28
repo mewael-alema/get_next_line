@@ -6,7 +6,7 @@
 /*   By: malema <malema@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:29:45 by malema            #+#    #+#             */
-/*   Updated: 2023/02/17 22:12:29 by malema           ###   ########.fr       */
+/*   Updated: 2023/02/25 20:00:45 by malema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	}
 	return (dest);
 }
+
 char	*ft_strdup(const char *src)
 {
 	char	*cp_str;

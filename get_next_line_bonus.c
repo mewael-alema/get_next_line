@@ -6,7 +6,7 @@
 /*   By: malema <malema@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:28:54 by malema            #+#    #+#             */
-/*   Updated: 2023/02/20 11:32:33 by malema           ###   ########.fr       */
+/*   Updated: 2023/02/28 20:08:19 by malema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	line = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX)
 		return (NULL);
 	if (temp[fd])
 	{

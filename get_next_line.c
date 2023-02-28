@@ -6,12 +6,11 @@
 /*   By: malema <malema@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:28:54 by malema            #+#    #+#             */
-/*   Updated: 2023/02/20 11:26:04 by malema           ###   ########.fr       */
+/*   Updated: 2023/02/28 20:21:08 by malema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-# include <stdio.h>
 
 char	*ft_beforenl(char *temp)
 {
@@ -45,10 +44,7 @@ char	*ft_afternl(char *temp)
 	while (temp[i] && temp[i] != '\n')
 		i++;
 	if (temp[i] == '\0')
-	{
-		return(NULL);
 		return (ft_strdup(""));
-	}
 	i++;
 	str = malloc(sizeof(char) * (ft_strlen(temp) - i + 1));
 	while (temp[i] != '\0')
@@ -61,12 +57,14 @@ char	*ft_afternl(char *temp)
 	return (str);
 }
 
-char	*read_chars(char *line, int fd)
+char	*read_chars(char *line, int fd, char *readchars)
 {
-	char		*readchars;
+	//char		*readchars;
 	int			count;
 
-	readchars = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	// readchars = malloc(sizeof(char) * ((unsigned int) BUFFER_SIZE + 1));
+	// if (!readchars)
+	// 	return (NULL);
 	count = 1;
 	while (count != 0)
 	{
@@ -94,9 +92,10 @@ char	*get_next_line(int fd)
 {
 	static char	*temp;
 	char		*line;
+	char		*readchars;
 
 	line = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX)
 		return (NULL);
 	if (temp)
 	{
@@ -104,16 +103,15 @@ char	*get_next_line(int fd)
 		free(temp);
 		temp = NULL;
 	}
-	line = read_chars(line, fd);
+	readchars = malloc(sizeof(char) * ((unsigned int) BUFFER_SIZE + 1));
+	if (!readchars)
+		return (NULL);
+	line = read_chars(line, fd, readchars);
 	if (line && ft_strchr(line, '\n'))
 	{
 		temp = ft_afternl(line);
-		if (temp == NULL)
-		{
-			free(temp);
-			temp = NULL;
-		}
 		line = ft_beforenl(line);
 	}
+	// free(readchars);
 	return (line);
 }
